@@ -16,14 +16,14 @@ class Expenses extends StatefulWidget {
 class _ExpensesState extends State<Expenses> {
   final List<Expense> _registeredExpenses = [
     Expense(
-      title: 'Water',
-      amount: 2,
+      title: 'McDonald\'s',
+      amount: 12.64,
       date: DateTime.now(),
       category: Category.food,
     ),
     Expense(
       title: 'Cinema',
-      amount: 15,
+      amount: 14,
       date: DateTime.now(),
       category: Category.leisure,
     ),
@@ -68,6 +68,8 @@ class _ExpensesState extends State<Expenses> {
 
   @override
   Widget build(BuildContext context) {
+    final width = MediaQuery.of(context).size.width;
+
     Widget mainContent = Center(child: Text('No expenses found.'));
 
     if (_registeredExpenses.isNotEmpty) {
@@ -79,7 +81,7 @@ class _ExpensesState extends State<Expenses> {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Flutter Expense Tracker'),
+        title: const Text('Expense Tracker'),
         actions: [
           IconButton(
             onPressed: _openAddExpenseOverlay,
@@ -87,11 +89,16 @@ class _ExpensesState extends State<Expenses> {
           ),
         ],
       ),
-      body: Column(
+      body: width < 600 ? Column(
         children: [
-          Chart(expenses: _registeredExpenses,), 
-          Expanded(child: mainContent)],
-      ),
+          Chart(expenses: _registeredExpenses),
+          Expanded(child: mainContent),
+        ],
+      ) : Row(children: [
+          Expanded(child: Chart(expenses: _registeredExpenses)),
+          Expanded(child: mainContent),
+          ],
+      )
     );
   }
 }

@@ -14,15 +14,20 @@ class ExpensesList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    
+    final sortedExpenses = List<Expense>.from(expenses)
+    ..sort((a, b) => b.date.compareTo(a.date)); // du plus récent au plus ancien
+
+
     return ListView.builder(
-      itemCount: expenses.length,
+      itemCount: sortedExpenses.length,
       itemBuilder:
           (ctx, index) => Dismissible(
-            key: ValueKey(expenses[index]),
+            key: ValueKey(sortedExpenses[index]),
             onDismissed: (direction) {
-              onRemoveExpense(expenses[index]);
+              onRemoveExpense(sortedExpenses[index]);
             },
-            child: ExpenseItem(expenses[index]),
+            child: ExpenseItem(sortedExpenses[index]),
           ),
     );
   }
