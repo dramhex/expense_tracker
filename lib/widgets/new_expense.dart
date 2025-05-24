@@ -67,18 +67,19 @@ class _NewExpenseState extends State<NewExpense> {
         category: _selectedCategory,
       ),
     );
+    Navigator.pop(context);
   }
 
-  @override
   void dispose() {
     _titleController.dispose();
     _amountController.dispose();
     super.dispose();
   }
 
+  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: const EdgeInsets.fromLTRB(16, 60, 16, 16),
       child: Column(
         children: [
           TextField(
